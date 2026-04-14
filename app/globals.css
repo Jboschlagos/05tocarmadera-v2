@@ -7,10 +7,11 @@
   --gris-claro: #f8f8f8;
   --gris-texto: #6b6b6b;
   --oscuro: #1a1a1a;
+  --blanco: #ffffff;
 }
 
 body {
-  background-color: var(--crema);
+  background-color: var(--blanco);
   color: var(--oscuro);
   font-family: Arial, Helvetica, sans-serif;
 }
