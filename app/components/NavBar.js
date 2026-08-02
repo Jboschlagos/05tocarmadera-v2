@@ -34,16 +34,10 @@ export default function Navbar() {
           <Users size={18} /> Artesanos
         </Link>
         <Link
-          href="/obras"
+          href="/entrevistas"
           className="text-stone-800 text-lg flex items-center gap-2 px-3 py-2 transition-all duration-200 hover:text-amber-700"
         >
-          <Hammer size={18} /> Obras
-        </Link>
-        <Link
-          href="/blog"
-          className="text-stone-800 text-lg flex items-center gap-2 px-3 py-2 transition-all duration-200 hover:text-amber-700"
-        >
-          <Newspaper size={18} /> Blog
+          <Newspaper size={18} /> Entrevistas
         </Link>
         <Link
           href="/nosotros"
