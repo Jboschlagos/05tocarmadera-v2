@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 
 // GET /api/products/[id]/images
-// Devuelve todas las imágenes de un producto, ordenadas por "orden".
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
@@ -24,9 +24,11 @@ export async function GET(request, { params }) {
   }
 }
 
-// POST /api/products/[id]/images
-// Agrega una imagen nueva a un producto. Por ahora sin protección de auth.
+// POST /api/products/[id]/images — solo admin
 export async function POST(request, { params }) {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   try {
     const { id } = await params;
     const body = await request.json();

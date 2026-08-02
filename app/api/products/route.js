@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 
 // GET /api/products
 // Devuelve todos los productos. Pública, sin auth.
@@ -22,13 +23,15 @@ export async function GET() {
 }
 
 // POST /api/products
-// Crea un producto nuevo. Por ahora sin protección de auth (se agrega después).
+// Crea un producto nuevo. Solo admin.
 export async function POST(request) {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   try {
     const body = await request.json();
     const { name, description, price, image_url, ciudad, region, lat, lng } = body;
 
-    // Validación mínima: los campos realmente obligatorios en la tabla
     if (!name || price === undefined) {
       return NextResponse.json(
         { error: "Los campos 'name' y 'price' son obligatorios" },

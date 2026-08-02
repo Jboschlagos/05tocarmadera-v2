@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
+import { requireAdmin } from "@/lib/requireAdmin";
 
-// POST /api/upload
-// Recibe un archivo (form-data, campo "file") y lo sube a Cloudinary.
-// Devuelve la URL para guardarla luego con /api/products/[id]/images.
+// POST /api/upload — solo admin
 export async function POST(request) {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   try {
     const formData = await request.formData();
     const file = formData.get("file");
@@ -16,7 +18,6 @@ export async function POST(request) {
       );
     }
 
-    // Convertir el archivo a base64 para subirlo a Cloudinary
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     const base64 = `data:${file.type};base64,${buffer.toString("base64")}`;

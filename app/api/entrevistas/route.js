@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
+import { requireAdmin } from "@/lib/requireAdmin";
 
 // GET /api/entrevistas
-// Devuelve todas las historias/entrevistas de artesanos. Pública, sin auth.
 export async function GET() {
   try {
     const entrevistas = await sql`
@@ -24,28 +24,19 @@ export async function GET() {
   }
 }
 
-// POST /api/entrevistas
-// Crea una entrevista nueva. Por ahora sin protección de auth (se agrega después).
+// POST /api/entrevistas — solo admin
 export async function POST(request) {
+  const authError = await requireAdmin();
+  if (authError) return authError;
+
   try {
     const body = await request.json();
     const {
-      titulo,
-      artesano,
-      oficio,
-      descripcion,
-      tecnica,
-      instagram_url,
-      imagen_principal,
-      fecha,
-      ciudad,
-      region,
-      lat,
-      lng,
-      youtube_id,
+      titulo, artesano, oficio, descripcion, tecnica,
+      instagram_url, imagen_principal, fecha, ciudad, region,
+      lat, lng, youtube_id,
     } = body;
 
-    // Validación: estos campos son NOT NULL en la tabla
     const faltantes = [];
     if (!titulo) faltantes.push("titulo");
     if (!artesano) faltantes.push("artesano");
