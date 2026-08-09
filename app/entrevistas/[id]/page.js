@@ -19,7 +19,7 @@ export default async function EntrevistaDetallePage({ params }) {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-8 py-16">
+    <main className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
       <h1 className="text-3xl font-bold mb-2">{entrevista.titulo}</h1>
       <p className="text-lg mb-1" style={{ color: "var(--madera)" }}>
         {entrevista.artesano_id ? (

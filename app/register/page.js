@@ -32,7 +32,6 @@ export default function RegisterPage() {
         return;
       }
 
-      // Registro exitoso → lo mandamos a login
       router.push("/login");
     } catch (err) {
       setError("Error de conexión, intenta de nuevo");
@@ -41,62 +40,64 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto px-8 py-16">
-      <h1 className="text-3xl font-bold mb-8">Crear cuenta</h1>
+    <main className="min-h-[70vh] flex items-center justify-center px-4 sm:px-8 py-8 sm:py-16">
+      <div className="w-full max-w-md">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-8">Crear cuenta</h1>
 
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div>
-          <label className="block text-sm mb-1">Nombre de usuario</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            className="w-full border rounded-lg px-3 py-2"
-          />
-        </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div>
+            <label className="block text-sm mb-1">Nombre de usuario</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className="w-full border rounded-lg px-3 py-2"
+            />
+          </div>
 
-        <div>
-          <label className="block text-sm mb-1">Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="w-full border rounded-lg px-3 py-2"
-          />
-        </div>
+          <div>
+            <label className="block text-sm mb-1">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full border rounded-lg px-3 py-2"
+            />
+          </div>
 
-        <div>
-          <label className="block text-sm mb-1">Contraseña</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={6}
-            className="w-full border rounded-lg px-3 py-2"
-          />
-        </div>
+          <div>
+            <label className="block text-sm mb-1">Contraseña</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
+              className="w-full border rounded-lg px-3 py-2"
+            />
+          </div>
 
-        {error && <p className="text-red-600 text-sm">{error}</p>}
+          {error && <p className="text-red-600 text-sm">{error}</p>}
 
-        <button
-          type="submit"
-          disabled={cargando}
-          className="rounded-lg px-4 py-2 text-white font-semibold"
-          style={{ backgroundColor: "var(--madera)" }}
-        >
-          {cargando ? "Creando cuenta..." : "Registrarme"}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={cargando}
+            className="rounded-lg px-4 py-2 text-white font-semibold"
+            style={{ backgroundColor: "var(--madera)" }}
+          >
+            {cargando ? "Creando cuenta..." : "Registrarme"}
+          </button>
+        </form>
 
-      <p className="text-sm mt-4" style={{ color: "var(--gris-texto)" }}>
-        ¿Ya tienes cuenta?{" "}
-        <Link href="/login" className="underline">
-          Inicia sesión
-        </Link>
-      </p>
+        <p className="text-sm mt-4" style={{ color: "var(--gris-texto)" }}>
+          ¿Ya tienes cuenta?{" "}
+          <Link href="/login" className="underline">
+            Inicia sesión
+          </Link>
+        </p>
+      </div>
     </main>
   );
 }

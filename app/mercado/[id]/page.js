@@ -25,7 +25,7 @@ export default async function ProductoDetallePage({ params }) {
   `;
 
   return (
-    <main className="max-w-5xl mx-auto px-8 py-16">
+    <main className="max-w-5xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
         {/* Galería */}
         <div>
@@ -44,7 +44,7 @@ export default async function ProductoDetallePage({ params }) {
                 className="w-full h-80 object-cover rounded-xl"
               />
               {images.length > 1 && (
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                   {images.slice(1).map((img) => (
                     <img
                       key={img.id}
@@ -62,14 +62,20 @@ export default async function ProductoDetallePage({ params }) {
         {/* Información */}
         <div>
           <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-          <p className="text-2xl font-bold mb-4" style={{ color: "var(--madera)" }}>
+          <p
+            className="text-2xl font-bold mb-4"
+            style={{ color: "var(--madera)" }}
+          >
             ${Number(product.price).toLocaleString("es-CL")}
           </p>
 
           {product.artesano_nombre && (
             <p className="text-sm mb-4" style={{ color: "var(--gris-texto)" }}>
               Hecho por{" "}
-              <Link href={`/artesanos/${product.artesano_id}`} className="underline font-semibold">
+              <Link
+                href={`/artesanos/${product.artesano_id}`}
+                className="underline font-semibold"
+              >
                 {product.artesano_nombre}
               </Link>
             </p>
