@@ -23,7 +23,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (!user) return null;
 
-        const passwordValida = await bcrypt.compare(password, user.password_hash);
+        const passwordValida = await bcrypt.compare(
+          password,
+          user.password_hash,
+        );
         if (!passwordValida) return null;
 
         return {
