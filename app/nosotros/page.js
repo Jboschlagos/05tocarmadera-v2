@@ -5,11 +5,11 @@ export const metadata = {
 };
 
 const imagenes = [
-  "/img/historia-1.jpg",
-  "/img/historia-2.jpg",
-  "/img/historia-3.jpg",
-  "/img/historia-4.jpg",
-  "/img/historia-5.jpg",
+  "/img/carrusel/01.jpg",
+  "/img/carrusel/02.jpg",
+  "/img/carrusel/03.jpg",
+  "/img/carrusel/04.jpg",
+  "/img/carrusel/05.jpg",
 ];
 
 export default function NosotrosPage() {
@@ -19,12 +19,16 @@ export default function NosotrosPage() {
 
       <Carousel images={imagenes} />
 
-      <div className="mt-10 flex flex-col gap-4" style={{ color: "var(--oscuro)" }}>
+      <div
+        className="mt-10 flex flex-col gap-4"
+        style={{ color: "var(--oscuro)" }}
+      >
         <p>
-          Tocar Madera nace de una idea simple: la madera chilena tiene historias
-          que merecen ser contadas. Detrás de cada mesa, cada silla y cada pieza
-          tallada hay un artesano con años de oficio, técnicas heredadas y un
-          vínculo profundo con los bosques y las tradiciones de su región.
+          Tocar Madera nace de una idea simple: la madera chilena tiene
+          historias que merecen ser contadas. Detrás de cada mesa, cada silla y
+          cada pieza tallada hay un artesano con años de oficio, técnicas
+          heredadas y un vínculo profundo con los bosques y las tradiciones de
+          su región.
         </p>
         <p>
           Este proyecto busca conectar a esos artesanos con personas que valoran

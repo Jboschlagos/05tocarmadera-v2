@@ -1,4 +1,20 @@
 import { sql } from "@/lib/db";
+import Carousel from "./components/Carousel";
+
+// Mismas imágenes que usamos en /nosotros. Las repito acá porque cada
+// página puede querer un carrusel distinto en el futuro (por ejemplo,
+// fotos de productos destacados en vez de "nuestra historia").
+// Si más adelante quieres que ambas páginas compartan siempre las mismas
+// imágenes, se puede sacar este array a un archivo compartido
+// (ej: lib/constants.js) para no repetirlo — pero eso lo dejamos para
+// cuando definamos bien qué mostrar en cada carrusel.
+const imagenesHero = [
+  "/img/carrusel/01.jpg",
+  "/img/carrusel/02.jpg",
+  "/img/carrusel/03.jpg",
+  "/img/carrusel/04.jpg",
+  "/img/carrusel/05.jpg",
+];
 
 export default async function HomePage() {
   const entrevistas = await sql`
@@ -8,8 +24,6 @@ export default async function HomePage() {
     LIMIT 3
   `;
 
-  // Trae cada producto junto con su primera imagen de la galería (product_images),
-  // ordenada por "orden". Si no tiene ninguna, image_url queda null.
   const products = await sql`
     SELECT
       p.id, p.name, p.price, p.ciudad, p.region,
@@ -28,13 +42,8 @@ export default async function HomePage() {
   return (
     <main>
       {/* ── Carrusel Hero ─────────────────────────────── */}
-      <section
-        className="w-full h-96 flex items-center justify-center"
-        style={{ backgroundColor: "var(--gris-claro)" }}
-      >
-        <p style={{ color: "var(--gris-texto)" }}>
-          [ Carrusel — próxima sesión ]
-        </p>
+      <section className="max-w-6xl mx-auto px-8 py-8">
+        <Carousel images={imagenesHero} />
       </section>
 
       {/* ── Historias / Blog ──────────────────────────── */}
@@ -45,7 +54,7 @@ export default async function HomePage() {
             Aún no hay historias publicadas.
           </p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {entrevistas.map((entrevista) => (
               <div
                 key={entrevista.id}
@@ -60,11 +69,16 @@ export default async function HomePage() {
                   />
                 )}
                 <div className="p-6">
-                  <h3 className="font-bold text-lg mb-1">{entrevista.titulo}</h3>
+                  <h3 className="font-bold text-lg mb-1">
+                    {entrevista.titulo}
+                  </h3>
                   <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
                     {entrevista.artesano} — {entrevista.oficio}
                   </p>
-                  <p className="text-xs mt-1" style={{ color: "var(--gris-texto)" }}>
+                  <p
+                    className="text-xs mt-1"
+                    style={{ color: "var(--gris-texto)" }}
+                  >
                     {entrevista.ciudad}, {entrevista.region}
                   </p>
                 </div>
@@ -88,7 +102,7 @@ export default async function HomePage() {
               Aún no hay productos publicados.
             </p>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
                 <div
                   key={product.id}
@@ -104,10 +118,16 @@ export default async function HomePage() {
                   )}
                   <div className="p-4">
                     <h3 className="font-semibold">{product.name}</h3>
-                    <p className="text-sm font-bold" style={{ color: "var(--madera)" }}>
+                    <p
+                      className="text-sm font-bold"
+                      style={{ color: "var(--madera)" }}
+                    >
                       ${Number(product.price).toLocaleString("es-CL")}
                     </p>
-                    <p className="text-xs" style={{ color: "var(--gris-texto)" }}>
+                    <p
+                      className="text-xs"
+                      style={{ color: "var(--gris-texto)" }}
+                    >
                       {product.ciudad}, {product.region}
                     </p>
                   </div>

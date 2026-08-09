@@ -21,9 +21,11 @@ export default async function ArtesanosPage() {
           Aún no hay artesanos registrados.
         </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {artesanos.map((artesano) => (
-            <Link key={artesano.id} href={`/artesanos/${artesano.id}`}
+            <Link
+              key={artesano.id}
+              href={`/artesanos/${artesano.id}`}
               className="rounded-xl overflow-hidden shadow-sm flex flex-col items-center text-center p-6 hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "var(--gris-claro)" }}
             >
@@ -45,7 +47,10 @@ export default async function ArtesanosPage() {
               <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
                 {artesano.oficio}
               </p>
-              <p className="text-xs mt-1" style={{ color: "var(--gris-texto)" }}>
+              <p
+                className="text-xs mt-1"
+                style={{ color: "var(--gris-texto)" }}
+              >
                 {artesano.ciudad}, {artesano.region}
               </p>
             </Link>

@@ -22,7 +22,10 @@ export default async function MercadoPage() {
 
   return (
     <main className="max-w-6xl mx-auto px-8 py-16">
-      <h1 className="text-3xl font-bold mb-8" style={{ color: "var(--oscuro)" }}>
+      <h1
+        className="text-3xl font-bold mb-8"
+        style={{ color: "var(--oscuro)" }}
+      >
         Mercado
       </h1>
 
@@ -31,9 +34,11 @@ export default async function MercadoPage() {
           Aún no hay productos publicados.
         </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <Link key={product.id} href={`/mercado/${product.id}`}
+            <Link
+              key={product.id}
+              href={`/mercado/${product.id}`}
               className="rounded-xl overflow-hidden shadow-sm block hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "white" }}
             >
@@ -46,7 +51,10 @@ export default async function MercadoPage() {
               )}
               <div className="p-4">
                 <h3 className="font-semibold">{product.name}</h3>
-                <p className="text-sm font-bold" style={{ color: "var(--madera)" }}>
+                <p
+                  className="text-sm font-bold"
+                  style={{ color: "var(--madera)" }}
+                >
                   ${Number(product.price).toLocaleString("es-CL")}
                 </p>
                 <p className="text-xs" style={{ color: "var(--gris-texto)" }}>

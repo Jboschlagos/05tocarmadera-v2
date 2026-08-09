@@ -21,9 +21,11 @@ export default async function EntrevistasPage() {
           Aún no hay entrevistas publicadas.
         </p>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {entrevistas.map((entrevista) => (
-            <Link key={entrevista.id} href={`/entrevistas/${entrevista.id}`}
+            <Link
+              key={entrevista.id}
+              href={`/entrevistas/${entrevista.id}`}
               className="rounded-xl overflow-hidden shadow-sm block hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "var(--gris-claro)" }}
             >
@@ -39,7 +41,10 @@ export default async function EntrevistasPage() {
                 <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
                   {entrevista.artesano} — {entrevista.oficio}
                 </p>
-                <p className="text-xs mt-1" style={{ color: "var(--gris-texto)" }}>
+                <p
+                  className="text-xs mt-1"
+                  style={{ color: "var(--gris-texto)" }}
+                >
                   {entrevista.ciudad}, {entrevista.region}
                 </p>
               </div>
