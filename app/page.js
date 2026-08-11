@@ -18,7 +18,7 @@ const imagenesHero = [
 
 export default async function HomePage() {
   const entrevistas = await sql`
-    SELECT id, titulo, artesano, oficio, imagen_principal, ciudad, region, fecha
+    SELECT id, titulo, taller, oficio, imagen_principal, ciudad, region, fecha
     FROM entrevistas
     ORDER BY fecha DESC
     LIMIT 3
@@ -73,10 +73,11 @@ export default async function HomePage() {
                     {entrevista.titulo}
                   </h3>
                   <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
-                    {entrevista.artesano} — {entrevista.oficio}
+                    {entrevista.taller} — {entrevista.oficio}
                   </p>
                   <p
                     className="text-xs mt-1"
+                    npm
                     style={{ color: "var(--gris-texto)" }}
                   >
                     {entrevista.ciudad}, {entrevista.region}

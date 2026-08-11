@@ -7,7 +7,7 @@ export const metadata = {
 
 export default async function EntrevistasPage() {
   const entrevistas = await sql`
-    SELECT id, titulo, artesano, oficio, imagen_principal, ciudad, region, fecha
+    SELECT id, titulo, taller, oficio, imagen_principal, ciudad, region, fecha
     FROM entrevistas
     ORDER BY fecha DESC
   `;
@@ -39,7 +39,7 @@ export default async function EntrevistasPage() {
               <div className="p-6">
                 <h3 className="font-bold text-lg mb-1">{entrevista.titulo}</h3>
                 <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
-                  {entrevista.artesano} — {entrevista.oficio}
+                  {entrevista.taller} — {entrevista.oficio}
                 </p>
                 <p
                   className="text-xs mt-1"
