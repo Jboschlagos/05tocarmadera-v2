@@ -6,11 +6,11 @@ export default async function EntrevistaDetallePage({ params }) {
   const { id } = await params;
 
   const [entrevista] = await sql`
-    SELECT e.id, e.titulo, e.artesano, e.oficio, e.descripcion, e.tecnica,
+    SELECT e.id, e.titulo, e.taller, e.oficio, e.descripcion, e.tecnica,
       e.instagram_url, e.imagen_principal, e.fecha, e.ciudad, e.region, e.youtube_id,
-      a.id AS artesano_id
+      t.id AS taller_id
     FROM entrevistas e
-    LEFT JOIN artesanos a ON a.id = e.artesano_id
+    LEFT JOIN talleres t ON t.id = e.taller_id
     WHERE e.id = ${id}
   `;
 
@@ -19,18 +19,18 @@ export default async function EntrevistaDetallePage({ params }) {
   }
 
   return (
-    <main className="max-w-3xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
+    <main className="max-w-3xl mx-auto px-8 py-16">
       <h1 className="text-3xl font-bold mb-2">{entrevista.titulo}</h1>
       <p className="text-lg mb-1" style={{ color: "var(--madera)" }}>
-        {entrevista.artesano_id ? (
+        {entrevista.taller_id ? (
           <Link
-            href={`/artesanos/${entrevista.artesano_id}`}
+            href={`/talleres/${entrevista.taller_id}`}
             className="underline"
           >
-            {entrevista.artesano}
+            {entrevista.taller}
           </Link>
         ) : (
-          entrevista.artesano
+          entrevista.taller
         )}
         {" — "}
         {entrevista.oficio}
@@ -75,7 +75,7 @@ export default async function EntrevistaDetallePage({ params }) {
       )}
 
       {entrevista.instagram_url && (
-        <a
+        
           href={entrevista.instagram_url}
           target="_blank"
           className="inline-block mt-6 underline"

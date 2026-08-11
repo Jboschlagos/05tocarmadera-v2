@@ -56,7 +56,7 @@ export default function TallerMapInner({ talleres, center, zoom = 5, height = "5
                 {t.oficio}
               </p>
               <Link
-                href={`/artesanos/${t.id}`}
+                href={`/talleres/${t.id}`}
                 style={{ color: "#8b5e3c", textDecoration: "underline", fontSize: "0.85rem" }}
               >
                 Ver perfil

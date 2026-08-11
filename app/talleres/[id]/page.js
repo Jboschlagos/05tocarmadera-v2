@@ -3,38 +3,38 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import TallerMap from "@/app/components/TallerMap";
 
-export default async function ArtesanoDetallePage({ params }) {
+export default async function TallerDetallePage({ params }) {
   const { id } = await params;
 
-  const [artesano] = await sql`
+  const [taller] = await sql`
     SELECT id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng
-    FROM artesanos
+    FROM talleres
     WHERE id = ${id}
   `;
 
-  if (!artesano) {
+  if (!taller) {
     notFound();
   }
 
   const productos = await sql`
     SELECT id, name, price
     FROM products
-    WHERE artesano_id = ${id}
+    WHERE taller_id = ${id}
   `;
 
   const entrevistas = await sql`
     SELECT id, titulo, fecha
     FROM entrevistas
-    WHERE artesano_id = ${id}
+    WHERE taller_id = ${id}
   `;
 
   return (
     <main className="max-w-4xl mx-auto px-8 py-16">
       <div className="flex flex-col items-center text-center mb-10">
-        {artesano.foto_url ? (
+        {taller.foto_url ? (
           <img
-            src={artesano.foto_url}
-            alt={artesano.nombre}
+            src={taller.foto_url}
+            alt={taller.nombre}
             className="w-32 h-32 rounded-full object-cover mb-4"
           />
         ) : (
@@ -42,16 +42,16 @@ export default async function ArtesanoDetallePage({ params }) {
             className="w-32 h-32 rounded-full mb-4 flex items-center justify-center text-4xl font-bold text-white"
             style={{ backgroundColor: "var(--madera)" }}
           >
-            {artesano.nombre.charAt(0)}
+            {taller.nombre.charAt(0)}
           </div>
         )}
-        <h1 className="text-3xl font-bold">{artesano.nombre}</h1>
-        <p className="text-lg" style={{ color: "var(--madera)" }}>{artesano.oficio}</p>
+        <h1 className="text-3xl font-bold">{taller.nombre}</h1>
+        <p className="text-lg" style={{ color: "var(--madera)" }}>{taller.oficio}</p>
         <p className="text-sm mt-1" style={{ color: "var(--gris-texto)" }}>
-          📍 {artesano.ciudad}, {artesano.region}
+          📍 {taller.ciudad}, {taller.region}
         </p>
-        {artesano.instagram_url && (
-          <a href={artesano.instagram_url}
+        {taller.instagram_url && (
+          <a href={taller.instagram_url}
             target="_blank"
             className="underline mt-2"
             style={{ color: "var(--madera)" }}
@@ -61,18 +61,18 @@ export default async function ArtesanoDetallePage({ params }) {
         )}
       </div>
 
-      {artesano.bio && (
+      {taller.bio && (
         <p className="mb-10 text-center max-w-2xl mx-auto" style={{ color: "var(--oscuro)" }}>
-          {artesano.bio}
+          {taller.bio}
         </p>
       )}
 
-      {artesano.lat && artesano.lng && (
+      {taller.lat && taller.lng && (
         <section className="mb-10">
           <h2 className="text-xl font-bold mb-4">Ubicación del taller</h2>
           <TallerMap
-            talleres={[artesano]}
-            center={[Number(artesano.lat), Number(artesano.lng)]}
+            talleres={[taller]}
+            center={[Number(taller.lat), Number(taller.lng)]}
             zoom={12}
             height="300px"
           />

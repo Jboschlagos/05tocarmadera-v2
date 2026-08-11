@@ -2,27 +2,27 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
 
-// GET /api/artesanos
+// GET /api/talleres
 export async function GET() {
   try {
-    const artesanos = await sql`
+    const talleres = await sql`
       SELECT id, nombre, oficio, bio, foto_url, instagram_url,
         ciudad, region, lat, lng
-      FROM artesanos
+      FROM talleres
       ORDER BY nombre ASC
     `;
 
-    return NextResponse.json({ artesanos });
+    return NextResponse.json({ talleres });
   } catch (error) {
-    console.error("Error al obtener artesanos:", error);
+    console.error("Error al obtener talleres:", error);
     return NextResponse.json(
-      { error: "No se pudieron obtener los artesanos" },
+      { error: "No se pudieron obtener los talleres" },
       { status: 500 },
     );
   }
 }
 
-// POST /api/artesanos — solo admin
+// POST /api/talleres — solo admin
 export async function POST(request) {
   const authError = await requireAdmin();
   if (authError) return authError;
@@ -38,17 +38,17 @@ export async function POST(request) {
       );
     }
 
-    const [newArtesano] = await sql`
-      INSERT INTO artesanos (nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng)
+    const [newTaller] = await sql`
+      INSERT INTO talleres (nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng)
       VALUES (${nombre}, ${oficio ?? null}, ${bio ?? null}, ${foto_url ?? null}, ${instagram_url ?? null}, ${ciudad ?? null}, ${region ?? null}, ${lat ?? null}, ${lng ?? null})
       RETURNING id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng
     `;
 
-    return NextResponse.json({ artesano: newArtesano }, { status: 201 });
+    return NextResponse.json({ taller: newTaller }, { status: 201 });
   } catch (error) {
-    console.error("Error al crear artesano:", error);
+    console.error("Error al crear taller:", error);
     return NextResponse.json(
-      { error: "No se pudo crear el artesano" },
+      { error: "No se pudo crear el taller" },
       { status: 500 },
     );
   }

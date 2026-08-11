@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const entrevistas = await sql`
       SELECT
-        id, titulo, artesano, oficio, descripcion, tecnica,
+        id, titulo, taller, oficio, descripcion, tecnica,
         instagram_url, imagen_principal, fecha, ciudad, region,
         lat, lng, youtube_id
       FROM entrevistas
@@ -32,14 +32,14 @@ export async function POST(request) {
   try {
     const body = await request.json();
     const {
-      titulo, artesano, oficio, descripcion, tecnica,
+      titulo, taller, oficio, descripcion, tecnica,
       instagram_url, imagen_principal, fecha, ciudad, region,
       lat, lng, youtube_id,
     } = body;
 
     const faltantes = [];
     if (!titulo) faltantes.push("titulo");
-    if (!artesano) faltantes.push("artesano");
+    if (!taller) faltantes.push("taller");
     if (!oficio) faltantes.push("oficio");
     if (!fecha) faltantes.push("fecha");
     if (!youtube_id) faltantes.push("youtube_id");
@@ -53,16 +53,16 @@ export async function POST(request) {
 
     const [newEntrevista] = await sql`
       INSERT INTO entrevistas (
-        titulo, artesano, oficio, descripcion, tecnica,
+        titulo, taller, oficio, descripcion, tecnica,
         instagram_url, imagen_principal, fecha, ciudad, region,
         lat, lng, youtube_id
       )
       VALUES (
-        ${titulo}, ${artesano}, ${oficio}, ${descripcion ?? null}, ${tecnica ?? null},
+        ${titulo}, ${taller}, ${oficio}, ${descripcion ?? null}, ${tecnica ?? null},
         ${instagram_url ?? null}, ${imagen_principal ?? null}, ${fecha}, ${ciudad ?? null}, ${region ?? null},
         ${lat ?? null}, ${lng ?? null}, ${youtube_id}
       )
-      RETURNING id, titulo, artesano, oficio, descripcion, tecnica,
+      RETURNING id, titulo, taller, oficio, descripcion, tecnica,
         instagram_url, imagen_principal, fecha, ciudad, region, lat, lng, youtube_id
     `;
 

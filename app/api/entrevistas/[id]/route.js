@@ -7,7 +7,7 @@ export async function GET(request, { params }) {
   try {
     const { id } = await params;
     const [entrevista] = await sql`
-      SELECT id, titulo, artesano, oficio, descripcion, tecnica,
+      SELECT id, titulo, taller, oficio, descripcion, tecnica,
         instagram_url, imagen_principal, fecha, ciudad, region,
         lat, lng, youtube_id
       FROM entrevistas
@@ -34,7 +34,7 @@ export async function PUT(request, { params }) {
     const { id } = await params;
     const body = await request.json();
     const {
-      titulo, artesano, oficio, descripcion, tecnica,
+      titulo, taller, oficio, descripcion, tecnica,
       instagram_url, imagen_principal, fecha, ciudad, region,
       lat, lng, youtube_id,
     } = body;
@@ -43,7 +43,7 @@ export async function PUT(request, { params }) {
       UPDATE entrevistas
       SET
         titulo = COALESCE(${titulo}, titulo),
-        artesano = COALESCE(${artesano}, artesano),
+        taller = COALESCE(${taller}, taller),
         oficio = COALESCE(${oficio}, oficio),
         descripcion = COALESCE(${descripcion}, descripcion),
         tecnica = COALESCE(${tecnica}, tecnica),
@@ -57,7 +57,7 @@ export async function PUT(request, { params }) {
         youtube_id = COALESCE(${youtube_id}, youtube_id),
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ${id}
-      RETURNING id, titulo, artesano, oficio, descripcion, tecnica,
+      RETURNING id, titulo, taller, oficio, descripcion, tecnica,
         instagram_url, imagen_principal, fecha, ciudad, region, lat, lng, youtube_id
     `;
 

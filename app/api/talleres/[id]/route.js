@@ -2,29 +2,29 @@ import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { requireAdmin } from "@/lib/requireAdmin";
 
-// GET /api/artesanos/[id]
+// GET /api/talleres/[id]
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
-    const [artesano] = await sql`
+    const [taller] = await sql`
       SELECT id, nombre, oficio, bio, foto_url, instagram_url,
         ciudad, region, lat, lng
-      FROM artesanos
+      FROM talleres
       WHERE id = ${id}
     `;
 
-    if (!artesano) {
-      return NextResponse.json({ error: "Artesano no encontrado" }, { status: 404 });
+    if (!taller) {
+      return NextResponse.json({ error: "Taller no encontrado" }, { status: 404 });
     }
 
-    return NextResponse.json({ artesano });
+    return NextResponse.json({ taller });
   } catch (error) {
-    console.error("Error al obtener artesano:", error);
-    return NextResponse.json({ error: "No se pudo obtener el artesano" }, { status: 500 });
+    console.error("Error al obtener taller:", error);
+    return NextResponse.json({ error: "No se pudo obtener el taller" }, { status: 500 });
   }
 }
 
-// PUT /api/artesanos/[id] — solo admin
+// PUT /api/talleres/[id] — solo admin
 export async function PUT(request, { params }) {
   const authError = await requireAdmin();
   if (authError) return authError;
@@ -35,7 +35,7 @@ export async function PUT(request, { params }) {
     const { nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng } = body;
 
     const [updated] = await sql`
-      UPDATE artesanos
+      UPDATE talleres
       SET
         nombre = COALESCE(${nombre}, nombre),
         oficio = COALESCE(${oficio}, oficio),
@@ -52,17 +52,17 @@ export async function PUT(request, { params }) {
     `;
 
     if (!updated) {
-      return NextResponse.json({ error: "Artesano no encontrado" }, { status: 404 });
+      return NextResponse.json({ error: "Taller no encontrado" }, { status: 404 });
     }
 
-    return NextResponse.json({ artesano: updated });
+    return NextResponse.json({ taller: updated });
   } catch (error) {
-    console.error("Error al actualizar artesano:", error);
-    return NextResponse.json({ error: "No se pudo actualizar el artesano" }, { status: 500 });
+    console.error("Error al actualizar taller:", error);
+    return NextResponse.json({ error: "No se pudo actualizar el taller" }, { status: 500 });
   }
 }
 
-// DELETE /api/artesanos/[id] — solo admin
+// DELETE /api/talleres/[id] — solo admin
 export async function DELETE(request, { params }) {
   const authError = await requireAdmin();
   if (authError) return authError;
@@ -71,17 +71,17 @@ export async function DELETE(request, { params }) {
     const { id } = await params;
 
     const [deleted] = await sql`
-      DELETE FROM artesanos WHERE id = ${id}
+      DELETE FROM talleres WHERE id = ${id}
       RETURNING id
     `;
 
     if (!deleted) {
-      return NextResponse.json({ error: "Artesano no encontrado" }, { status: 404 });
+      return NextResponse.json({ error: "Taller no encontrado" }, { status: 404 });
     }
 
-    return NextResponse.json({ message: "Artesano eliminado", id: deleted.id });
+    return NextResponse.json({ message: "Taller eliminado", id: deleted.id });
   } catch (error) {
-    console.error("Error al eliminar artesano:", error);
-    return NextResponse.json({ error: "No se pudo eliminar el artesano" }, { status: 500 });
+    console.error("Error al eliminar taller:", error);
+    return NextResponse.json({ error: "No se pudo eliminar el taller" }, { status: 500 });
   }
 }
