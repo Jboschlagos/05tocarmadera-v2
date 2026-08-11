@@ -23,17 +23,21 @@ export default function Carousel({ images }) {
 
   return (
     <div className="relative w-full h-96 rounded-xl overflow-hidden">
-      <img src={images[index]} alt={`Nuestra historia ${index + 1}`}
+      <img
+        src={images[index]}
+        alt={`Nuestra historia ${index + 1}`}
         className="w-full h-full object-cover transition-opacity duration-500"
       />
 
-      <button onClick={anterior}
+      <button
+        onClick={anterior}
         className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2"
       >
         <ChevronLeft size={20} />
       </button>
 
-      <button onClick={siguiente}
+      <button
+        onClick={siguiente}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2"
       >
         <ChevronRight size={20} />
@@ -41,9 +45,14 @@ export default function Carousel({ images }) {
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {images.map((_, i) => (
-          <button key={i} onClick={() => setIndex(i)}
+          <button
+            key={i}
+            onClick={() => setIndex(i)}
             className="w-2 h-2 rounded-full"
-            style={{ backgroundColor: i === index ? "var(--madera)" : "rgba(255,255,255,0.6)" }}
+            style={{
+              backgroundColor:
+                i === index ? "var(--madera)" : "rgba(255,255,255,0.6)",
+            }}
           />
         ))}
       </div>

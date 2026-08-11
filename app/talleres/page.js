@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import Link from "next/link";
+import TallerMap from "@/app/components/TallerMap";
 
 export const metadata = {
   title: "Artesanos | Tocar Madera",
@@ -7,25 +8,31 @@ export const metadata = {
 
 export default async function ArtesanosPage() {
   const artesanos = await sql`
-    SELECT id, nombre, oficio, foto_url, ciudad, region
+    SELECT id, nombre, oficio, foto_url, ciudad, region, lat, lng
     FROM artesanos
     ORDER BY nombre ASC
   `;
 
+  const conUbicacion = artesanos.filter((a) => a.lat && a.lng);
+
   return (
     <main className="max-w-6xl mx-auto px-8 py-16">
       <h1 className="text-3xl font-bold mb-8">Artesanos</h1>
+
+      {conUbicacion.length > 0 && (
+        <div className="mb-12">
+          <TallerMap talleres={conUbicacion} zoom={5} height="400px" />
+        </div>
+      )}
 
       {artesanos.length === 0 ? (
         <p style={{ color: "var(--gris-texto)" }}>
           Aún no hay artesanos registrados.
         </p>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {artesanos.map((artesano) => (
-            <Link
-              key={artesano.id}
-              href={`/artesanos/${artesano.id}`}
+            <Link key={artesano.id} href={`/artesanos/${artesano.id}`}
               className="rounded-xl overflow-hidden shadow-sm flex flex-col items-center text-center p-6 hover:opacity-90 transition-opacity"
               style={{ backgroundColor: "var(--gris-claro)" }}
             >
@@ -47,10 +54,7 @@ export default async function ArtesanosPage() {
               <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
                 {artesano.oficio}
               </p>
-              <p
-                className="text-xs mt-1"
-                style={{ color: "var(--gris-texto)" }}
-              >
+              <p className="text-xs mt-1" style={{ color: "var(--gris-texto)" }}>
                 {artesano.ciudad}, {artesano.region}
               </p>
             </Link>
