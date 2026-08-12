@@ -77,7 +77,7 @@ export default function Footer() {
               className="text-sm hover:underline underline-offset-4"
               style={{ color: "var(--gris-texto)" }}
             >
-              ¿Eres artesano? Únete
+              ¿Tienes un taller o trabajas la madera? Únete
             </Link>
             <Link
               href="#"

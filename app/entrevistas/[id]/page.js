@@ -75,7 +75,7 @@ export default async function EntrevistaDetallePage({ params }) {
       )}
 
       {entrevista.instagram_url && (
-        
+        <a
           href={entrevista.instagram_url}
           target="_blank"
           className="inline-block mt-6 underline"

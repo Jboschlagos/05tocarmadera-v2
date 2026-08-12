@@ -45,7 +45,17 @@ export default async function HomePage() {
       <section className="max-w-6xl mx-auto px-8 py-8">
         <Carousel images={imagenesHero} />
       </section>
-
+      {/* ── Mensaje introductorio ─────────────────────── */}
+      <section className="max-w-3xl mx-auto px-8 pb-8 text-center">
+        <p className="text-lg" style={{ color: "var(--gris-texto)" }}>
+          Piezas de madera hechas por talleres chilenos. Conoce a los artesanos,
+          su técnica y su ubicación antes de comprar.
+        </p>
+        <hr
+          className="mt-8"
+          style={{ borderColor: "#4a4a4a", borderTopWidth: "1px" }}
+        />
+      </section>
       {/* ── Historias / Blog ──────────────────────────── */}
       <section className="max-w-6xl mx-auto px-8 py-16 bg-white">
         <h2 className="text-3xl font-bold mb-8">Historias de Talleres</h2>
@@ -77,7 +87,6 @@ export default async function HomePage() {
                   </p>
                   <p
                     className="text-xs mt-1"
-                    npm
                     style={{ color: "var(--gris-texto)" }}
                   >
                     {entrevista.ciudad}, {entrevista.region}
