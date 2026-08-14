@@ -7,7 +7,8 @@ export async function GET() {
   try {
     const talleres = await sql`
       SELECT id, nombre, oficio, bio, foto_url, instagram_url,
-        ciudad, region, lat, lng
+        ciudad, region, lat, lng,
+        direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo
       FROM talleres
       ORDER BY nombre ASC
     `;
@@ -29,7 +30,10 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng } = body;
+    const {
+      nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng,
+      direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo,
+    } = body;
 
     if (!nombre) {
       return NextResponse.json(
@@ -39,9 +43,18 @@ export async function POST(request) {
     }
 
     const [newTaller] = await sql`
-      INSERT INTO talleres (nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng)
-      VALUES (${nombre}, ${oficio ?? null}, ${bio ?? null}, ${foto_url ?? null}, ${instagram_url ?? null}, ${ciudad ?? null}, ${region ?? null}, ${lat ?? null}, ${lng ?? null})
-      RETURNING id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng
+      INSERT INTO talleres (
+        nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng,
+        direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo
+      )
+      VALUES (
+        ${nombre}, ${oficio ?? null}, ${bio ?? null}, ${foto_url ?? null}, ${instagram_url ?? null},
+        ${ciudad ?? null}, ${region ?? null}, ${lat ?? null}, ${lng ?? null},
+        ${direccion ?? null}, ${telefono ?? null}, ${whatsapp_url ?? null},
+        ${sitio_web ?? null}, ${tecnica ?? null}, ${tipo_trabajo ?? null}
+      )
+      RETURNING id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng,
+        direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo
     `;
 
     return NextResponse.json({ taller: newTaller }, { status: 201 });

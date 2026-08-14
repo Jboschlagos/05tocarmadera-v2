@@ -8,7 +8,8 @@ export async function GET(request, { params }) {
     const { id } = await params;
     const [taller] = await sql`
       SELECT id, nombre, oficio, bio, foto_url, instagram_url,
-        ciudad, region, lat, lng
+        ciudad, region, lat, lng,
+        direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo
       FROM talleres
       WHERE id = ${id}
     `;
@@ -32,7 +33,10 @@ export async function PUT(request, { params }) {
   try {
     const { id } = await params;
     const body = await request.json();
-    const { nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng } = body;
+    const {
+      nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng,
+      direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo,
+    } = body;
 
     const [updated] = await sql`
       UPDATE talleres
@@ -46,9 +50,16 @@ export async function PUT(request, { params }) {
         region = COALESCE(${region}, region),
         lat = COALESCE(${lat}, lat),
         lng = COALESCE(${lng}, lng),
+        direccion = COALESCE(${direccion}, direccion),
+        telefono = COALESCE(${telefono}, telefono),
+        whatsapp_url = COALESCE(${whatsapp_url}, whatsapp_url),
+        sitio_web = COALESCE(${sitio_web}, sitio_web),
+        tecnica = COALESCE(${tecnica}, tecnica),
+        tipo_trabajo = COALESCE(${tipo_trabajo}, tipo_trabajo),
         updated_at = CURRENT_TIMESTAMP
       WHERE id = ${id}
-      RETURNING id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng
+      RETURNING id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng,
+        direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo
     `;
 
     if (!updated) {
