@@ -5,12 +5,19 @@ import Link from "next/link";
 import { MapPin, X, Phone, MessageCircle, Globe, Home } from "lucide-react";
 import TallerMap from "./TallerMap";
 
-export default function TallerPerfilConMapa({ taller, productos, entrevistas }) {
+export default function TallerPerfilConMapa({
+  taller,
+  productos,
+  entrevistas,
+}) {
   const [mostrarMapa, setMostrarMapa] = useState(false);
   const tieneUbicacion = taller.lat && taller.lng;
 
   const tieneContacto =
-    taller.direccion || taller.telefono || taller.whatsapp_url || taller.sitio_web;
+    taller.direccion ||
+    taller.telefono ||
+    taller.whatsapp_url ||
+    taller.sitio_web;
 
   return (
     <>
@@ -59,7 +66,9 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
               </div>
             )}
             <h1 className="text-3xl font-bold">{taller.nombre}</h1>
-            <p className="text-lg" style={{ color: "var(--madera)" }}>{taller.oficio}</p>
+            <p className="text-lg" style={{ color: "var(--madera)" }}>
+              {taller.oficio}
+            </p>
             {taller.tipo_trabajo && (
               <span
                 className="mt-2 text-xs px-2 py-0.5 rounded-full"
@@ -72,7 +81,8 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
               📍 {taller.ciudad}, {taller.region}
             </p>
             {taller.instagram_url && (
-              <a href={taller.instagram_url}
+              <a
+                href={taller.instagram_url}
                 target="_blank"
                 className="underline mt-2"
                 style={{ color: "var(--madera)" }}
@@ -83,7 +93,10 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
           </div>
 
           {taller.bio && (
-            <p className="mb-10 text-center max-w-2xl mx-auto" style={{ color: "var(--oscuro)" }}>
+            <p
+              className="mb-10 text-center max-w-2xl mx-auto"
+              style={{ color: "var(--oscuro)" }}
+            >
               {taller.bio}
             </p>
           )}
@@ -93,19 +106,25 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
               <h2 className="text-xl font-bold mb-4">Contacto</h2>
               <div className="flex flex-col gap-2">
                 {taller.direccion && (
-                  <p className="flex items-center gap-2" style={{ color: "var(--oscuro)" }}>
+                  <p
+                    className="flex items-center gap-2"
+                    style={{ color: "var(--oscuro)" }}
+                  >
                     <Home size={16} style={{ color: "var(--madera)" }} />
                     {taller.direccion}
                   </p>
                 )}
                 {taller.telefono && (
-                  <p className="flex items-center gap-2" style={{ color: "var(--oscuro)" }}>
+                  <p
+                    className="flex items-center gap-2"
+                    style={{ color: "var(--oscuro)" }}
+                  >
                     <Phone size={16} style={{ color: "var(--madera)" }} />
                     {taller.telefono}
                   </p>
                 )}
                 {taller.whatsapp_url && (
-                  
+                  <a
                     href={taller.whatsapp_url}
                     target="_blank"
                     className="flex items-center gap-2 underline"
@@ -116,7 +135,7 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
                   </a>
                 )}
                 {taller.sitio_web && (
-                  
+                  <a
                     href={taller.sitio_web}
                     target="_blank"
                     className="flex items-center gap-2 underline"
