@@ -6,7 +6,8 @@ export default async function TallerDetallePage({ params }) {
   const { id } = await params;
 
   const [taller] = await sql`
-    SELECT id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng
+    SELECT id, nombre, oficio, bio, foto_url, instagram_url, ciudad, region, lat, lng,
+      direccion, telefono, whatsapp_url, sitio_web, tecnica, tipo_trabajo
     FROM talleres
     WHERE id = ${id}
   `;

@@ -7,7 +7,7 @@ export const metadata = {
 
 export default async function TalleresPage() {
   const talleres = await sql`
-    SELECT id, nombre, oficio, foto_url, ciudad, region, lat, lng
+    SELECT id, nombre, oficio, foto_url, ciudad, region, lat, lng, tipo_trabajo
     FROM talleres
     ORDER BY nombre ASC
   `;

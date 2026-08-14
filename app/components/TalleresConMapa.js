@@ -19,7 +19,6 @@ export default function TalleresConMapa({ talleres }) {
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
-      {/* Botón toggle — solo visible en mobile/tablet (oculto desde lg) */}
       {conUbicacion.length > 0 && (
         <button
           onClick={() => setMostrarMapa((v) => !v)}
@@ -31,7 +30,6 @@ export default function TalleresConMapa({ talleres }) {
         </button>
       )}
 
-      {/* Mapa — oculto en mobile salvo que se togglee; siempre visible desde lg */}
       {conUbicacion.length > 0 && (
         <div
           className={`${mostrarMapa ? "block" : "hidden"} lg:block lg:order-2 lg:w-[380px] lg:flex-shrink-0`}
@@ -42,7 +40,6 @@ export default function TalleresConMapa({ talleres }) {
         </div>
       )}
 
-      {/* Listado de talleres */}
       <div className="flex-1 lg:order-1">
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {talleres.map((taller) => (
@@ -70,10 +67,15 @@ export default function TalleresConMapa({ talleres }) {
               <p className="text-sm" style={{ color: "var(--gris-texto)" }}>
                 {taller.oficio}
               </p>
-              <p
-                className="text-xs mt-1"
-                style={{ color: "var(--gris-texto)" }}
-              >
+              {taller.tipo_trabajo && (
+                <span
+                  className="mt-2 text-xs px-2 py-0.5 rounded-full"
+                  style={{ backgroundColor: "var(--madera)", color: "white" }}
+                >
+                  {taller.tipo_trabajo}
+                </span>
+              )}
+              <p className="text-xs mt-2" style={{ color: "var(--gris-texto)" }}>
                 {taller.ciudad}, {taller.region}
               </p>
             </Link>

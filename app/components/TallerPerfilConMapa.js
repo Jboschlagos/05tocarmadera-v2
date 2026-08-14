@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { MapPin, X } from "lucide-react";
+import { MapPin, X, Phone, MessageCircle, Globe, Home } from "lucide-react";
 import TallerMap from "./TallerMap";
 
 export default function TallerPerfilConMapa({ taller, productos, entrevistas }) {
   const [mostrarMapa, setMostrarMapa] = useState(false);
   const tieneUbicacion = taller.lat && taller.lng;
 
+  const tieneContacto =
+    taller.direccion || taller.telefono || taller.whatsapp_url || taller.sitio_web;
+
   return (
     <>
-      {/* Botón toggle — solo visible en mobile/tablet, arriba de todo */}
       {tieneUbicacion && (
         <button
           onClick={() => setMostrarMapa((v) => !v)}
@@ -24,7 +26,6 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
       )}
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Mapa — oculto en mobile salvo que se togglee; siempre visible desde lg */}
         {tieneUbicacion && (
           <div
             className={`${mostrarMapa ? "block" : "hidden"} lg:block lg:order-2 lg:w-[380px] lg:flex-shrink-0`}
@@ -41,7 +42,6 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
           </div>
         )}
 
-        {/* Contenido del perfil */}
         <div className="flex-1 lg:order-1">
           <div className="flex flex-col items-center text-center mb-10">
             {taller.foto_url ? (
@@ -60,7 +60,15 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
             )}
             <h1 className="text-3xl font-bold">{taller.nombre}</h1>
             <p className="text-lg" style={{ color: "var(--madera)" }}>{taller.oficio}</p>
-            <p className="text-sm mt-1" style={{ color: "var(--gris-texto)" }}>
+            {taller.tipo_trabajo && (
+              <span
+                className="mt-2 text-xs px-2 py-0.5 rounded-full"
+                style={{ backgroundColor: "var(--madera)", color: "white" }}
+              >
+                {taller.tipo_trabajo}
+              </span>
+            )}
+            <p className="text-sm mt-2" style={{ color: "var(--gris-texto)" }}>
               📍 {taller.ciudad}, {taller.region}
             </p>
             {taller.instagram_url && (
@@ -78,6 +86,55 @@ export default function TallerPerfilConMapa({ taller, productos, entrevistas }) 
             <p className="mb-10 text-center max-w-2xl mx-auto" style={{ color: "var(--oscuro)" }}>
               {taller.bio}
             </p>
+          )}
+
+          {tieneContacto && (
+            <section className="mb-10">
+              <h2 className="text-xl font-bold mb-4">Contacto</h2>
+              <div className="flex flex-col gap-2">
+                {taller.direccion && (
+                  <p className="flex items-center gap-2" style={{ color: "var(--oscuro)" }}>
+                    <Home size={16} style={{ color: "var(--madera)" }} />
+                    {taller.direccion}
+                  </p>
+                )}
+                {taller.telefono && (
+                  <p className="flex items-center gap-2" style={{ color: "var(--oscuro)" }}>
+                    <Phone size={16} style={{ color: "var(--madera)" }} />
+                    {taller.telefono}
+                  </p>
+                )}
+                {taller.whatsapp_url && (
+                  
+                    href={taller.whatsapp_url}
+                    target="_blank"
+                    className="flex items-center gap-2 underline"
+                    style={{ color: "var(--madera)" }}
+                  >
+                    <MessageCircle size={16} />
+                    Escríbeme por WhatsApp
+                  </a>
+                )}
+                {taller.sitio_web && (
+                  
+                    href={taller.sitio_web}
+                    target="_blank"
+                    className="flex items-center gap-2 underline"
+                    style={{ color: "var(--madera)" }}
+                  >
+                    <Globe size={16} />
+                    Sitio web
+                  </a>
+                )}
+              </div>
+            </section>
+          )}
+
+          {taller.tecnica && (
+            <section className="mb-10">
+              <h2 className="text-xl font-bold mb-4">Técnicas y materiales</h2>
+              <p style={{ color: "var(--oscuro)" }}>{taller.tecnica}</p>
+            </section>
           )}
 
           {entrevistas.length > 0 && (
