@@ -10,7 +10,8 @@ import { Locate } from "lucide-react";
 // Usamos los íconos desde un CDN en vez de copiarlos a /public.
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+  iconRetinaUrl:
+    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
@@ -36,7 +37,12 @@ function BotonCentrar({ puntos }) {
   );
 }
 
-export default function TallerMapInner({ talleres, center, zoom = 5, height = "500px" }) {
+export default function TallerMapInner({
+  talleres,
+  center,
+  zoom = 5,
+  height = "500px",
+}) {
   const puntos = talleres.filter((t) => t.lat && t.lng);
 
   const centroMapa =
@@ -76,12 +82,22 @@ export default function TallerMapInner({ talleres, center, zoom = 5, height = "5
                   />
                 )}
                 <p style={{ fontWeight: "bold", margin: 0 }}>{t.nombre}</p>
-                <p style={{ fontSize: "0.8rem", color: "#6b6b6b", margin: "2px 0 6px" }}>
+                <p
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "#6b6b6b",
+                    margin: "2px 0 6px",
+                  }}
+                >
                   {t.oficio}
                 </p>
                 <Link
                   href={`/talleres/${t.id}`}
-                  style={{ color: "#8b5e3c", textDecoration: "underline", fontSize: "0.85rem" }}
+                  style={{
+                    color: "#8b5e3c",
+                    textDecoration: "underline",
+                    fontSize: "0.85rem",
+                  }}
                 >
                   Ver perfil
                 </Link>
