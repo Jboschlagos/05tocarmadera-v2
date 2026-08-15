@@ -30,7 +30,17 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { name, description, price, image_url, ciudad, region, lat, lng } = body;
+    const {
+      name,
+      description,
+      price,
+      image_url,
+      ciudad,
+      region,
+      lat,
+      lng,
+      taller_id,
+    } = body;
 
     if (!name || price === undefined) {
       return NextResponse.json(
@@ -40,9 +50,9 @@ export async function POST(request) {
     }
 
     const [newProduct] = await sql`
-      INSERT INTO products (name, description, price, image_url, ciudad, region, lat, lng)
-      VALUES (${name}, ${description ?? null}, ${price}, ${image_url ?? null}, ${ciudad ?? null}, ${region ?? null}, ${lat ?? null}, ${lng ?? null})
-      RETURNING id, name, description, price, image_url, ciudad, region, lat, lng
+      INSERT INTO products (name, description, price, image_url, ciudad, region, lat, lng, taller_id)
+      VALUES (${name}, ${description ?? null}, ${price}, ${image_url ?? null}, ${ciudad ?? null}, ${region ?? null}, ${lat ?? null}, ${lng ?? null}, ${taller_id ?? null})
+      RETURNING id, name, description, price, image_url, ciudad, region, lat, lng, taller_id
     `;
 
     return NextResponse.json({ product: newProduct }, { status: 201 });
