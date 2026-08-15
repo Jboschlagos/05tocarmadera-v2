@@ -73,19 +73,16 @@ export default function LoginPage() {
             {cargando ? "Ingresando..." : "Ingresar"}
           </button>
         </form>
-
-        <p
-          className="text-sm mt-4 text-center"
-          style={{ color: "var(--gris-texto)" }}
-        >
-          <Link href="/forgot-password" className="underline">
-            ¿Olvidaste tu contraseña?
-          </Link>
-        </p>
-        <p className="text-sm mt-2" style={{ color: "var(--gris-texto)" }}>
+        <p className="text-sm mt-4" style={{ color: "var(--gris-texto)" }}>
           ¿No tienes cuenta?{" "}
           <Link href="/register" className="underline">
             Regístrate
+          </Link>
+        </p>
+
+        <p className="text-sm mt-2" style={{ color: "var(--gris-texto)" }}>
+          <Link href="/forgot-password" className="underline">
+            ¿Olvidaste tu contraseña?
           </Link>
         </p>
       </div>
