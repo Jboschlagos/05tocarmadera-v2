@@ -1,5 +1,6 @@
 import { sql } from "@/lib/db";
 import Carousel from "./components/Carousel";
+import Link from "next/link";
 
 // Mismas imágenes que usamos en /nosotros. Las repito acá porque cada
 // página puede querer un carrusel distinto en el futuro (por ejemplo,
@@ -66,9 +67,10 @@ export default async function HomePage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {entrevistas.map((entrevista) => (
-              <div
+              <Link
                 key={entrevista.id}
-                className="rounded-xl overflow-hidden shadow-sm"
+                href={`/entrevistas/${entrevista.id}`}
+                className="block rounded-xl overflow-hidden shadow-sm border border-transparent transition-all duration-200 hover:shadow-md hover:scale-[1.03] hover:border-[var(--madera)]"
                 style={{ backgroundColor: "var(--gris-claro)" }}
               >
                 {entrevista.imagen_principal && (
@@ -92,7 +94,7 @@ export default async function HomePage() {
                     {entrevista.ciudad}, {entrevista.region}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
@@ -114,9 +116,10 @@ export default async function HomePage() {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {products.map((product) => (
-                <div
+                <Link
                   key={product.id}
-                  className="rounded-xl overflow-hidden shadow-sm"
+                  href={`/mercado/${product.id}`}
+                  className="block rounded-xl overflow-hidden shadow-sm border border-transparent transition-all duration-200 hover:shadow-md hover:scale-[1.03] hover:border-[var(--madera)]"
                   style={{ backgroundColor: "white" }}
                 >
                   {product.image_url && (
@@ -141,7 +144,7 @@ export default async function HomePage() {
                       {product.ciudad}, {product.region}
                     </p>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           )}

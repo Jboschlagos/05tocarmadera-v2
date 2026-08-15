@@ -46,7 +46,7 @@ export default function TalleresConMapa({ talleres }) {
             <Link
               key={taller.id}
               href={`/talleres/${taller.id}`}
-              className="rounded-xl overflow-hidden shadow-sm flex flex-col items-center text-center p-6 hover:opacity-90 transition-opacity"
+              className="flex flex-col items-center text-center p-6 rounded-xl overflow-hidden shadow-sm border border-transparent transition-all duration-200 hover:shadow-md hover:scale-[1.03] hover:border-[var(--madera)]"
               style={{ backgroundColor: "var(--gris-claro)" }}
             >
               {taller.foto_url ? (
@@ -75,7 +75,10 @@ export default function TalleresConMapa({ talleres }) {
                   {taller.tipo_trabajo}
                 </span>
               )}
-              <p className="text-xs mt-2" style={{ color: "var(--gris-texto)" }}>
+              <p
+                className="text-xs mt-2"
+                style={{ color: "var(--gris-texto)" }}
+              >
                 {taller.ciudad}, {taller.region}
               </p>
             </Link>

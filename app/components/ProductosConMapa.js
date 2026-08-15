@@ -49,7 +49,7 @@ export default function ProductosConMapa({ productos }) {
             <Link
               key={product.id}
               href={`/mercado/${product.id}`}
-              className="rounded-xl overflow-hidden shadow-sm block hover:opacity-90 transition-opacity"
+              className="block rounded-xl overflow-hidden shadow-sm border border-transparent transition-all duration-200 hover:shadow-md hover:scale-[1.03] hover:border-[var(--madera)]"
               style={{ backgroundColor: "white" }}
             >
               {product.image_url && (
