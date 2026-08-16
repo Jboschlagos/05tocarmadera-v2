@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "Tocar Madera | Artesanos de Chile",
+  title: "Tocar Madera | Trabajadores de la madera de Chile",
   description:
     "Conectamos con las historias detrás de los talleres de madera chilenos.",
 };
